@@ -20,9 +20,9 @@ class _HomeState extends State<Home> {
 
   final dio = Dio();
   String url =
-      "https://api.weatherapi.com/v1/current.json?key=9d5ba95194574198a1172026232609&q=rawalpindi&aqi=no";
+      "https://api.weatherapi.com/v1/current.json?key=YOUR API KEY&q=rawalpindi&aqi=no";
   String forecast =
-      "http://api.weatherapi.com/v1/forecast.json?key=9d5ba95194574198a1172026232609&q=rawalpindi&days=5&aqi=no&alerts=no";
+      "http://api.weatherapi.com/v1/forecast.json?key=YOUR API KEY&q=rawalpindi&days=5&aqi=no&alerts=no";
 
   getData() async {
     var response = await dio.get(url);
@@ -124,118 +124,78 @@ class _HomeState extends State<Home> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 25, horizontal: 20),
-                    // child: FutureBuilder(
-                    //     future: getData(),
-                    //     builder:
-                    //         (BuildContext context, AsyncSnapshot snapshot) {
-                    //       var snap = snapshot.data;
-                    //       if (snapshot.connectionState ==
-                    //           ConnectionState.waiting) {
-                    //         return const Center(
-                    //           child: SpinKitFadingCube(
-                    //             color: Colors.white,
-                    //             size: 30.0,
-                    //           ),
-                    //         );
-                    //       }
-                    //       if (snapshot.hasError) {}
-                    //       try {
-                    //         return Column(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //           children: [
-                    //             Row(
-                    //               mainAxisAlignment:
-                    //                   MainAxisAlignment.spaceBetween,
-                    //               children: [
-                    //                 Text(snap['location']['name'] +
-                    //                     ' , ' +
-                    //                     snap['location']['country']),
-                    //                 const Icon(Icons.more_horiz_outlined)
-                    //               ],
-                    //             ),
-                    //             Row(
-                    //               mainAxisAlignment:
-                    //                   MainAxisAlignment.spaceBetween,
-                    //               children: [
-                    //                 Column(
-                    //                   crossAxisAlignment:
-                    //                       CrossAxisAlignment.start,
-                    //                   children: [
-                    //                     Text(
-                    //                       "${snap['current']['temp_c'].toString().split('.')[0]}°",
-                    //                       style: TextStyle(fontSize: 50),
-                    //                     ),
-                    //                     Text(
-                    //                       snap['current']['condition']['text'],
-                    //                     ),
-                    //                     gap10(),
-                    //                     Text(
-                    //                         "Humidity ${snap['current']['humidity']}%"),
-                    //                     gap10(),
-                    //                   ],
-                    //                 ),
-                    //                 const GlowIcon(
-                    //                   Icons.sunny,
-                    //                   color: Colors.yellow,
-                    //                   size: 120,
-                    //                 )
-                    //               ],
-                    //             )
-                    //           ],
-                    //         );
-                    //       } catch (e) {
-                    //         return Center(
-                    //           child: Text(
-                    //             e.toString(),
-                    //             style: const TextStyle(
-                    //               color: Colors.white,
-                    //               fontSize: 18,
-                    //             ),
-                    //           ),
-                    //         );
-                    //       }
-                    //     }),
-                      child:Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Rawalpindi, Pakistan"),
-                              const Icon(Icons.more_horiz_outlined)
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "29°",
-                                    style: TextStyle(fontSize: 50),
-                                  ),
-                                  Text(
-                                    "Cloudy",
-                                  ),
-                                  gap10(),
-                                  Text(
-                                      "Humidity 30%"),
-                                  gap10(),
-                                ],
-                              ),
-                              const GlowIcon(
-                                Icons.wb_cloudy,
+                    child: FutureBuilder(
+                        future: getData(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          var snap = snapshot.data;
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: SpinKitFadingCube(
                                 color: Colors.white,
-                                size: 120,
-                              )
-                            ],
-                          )
-                        ],
-                      )
+                                size: 30.0,
+                              ),
+                            );
+                          }
+                          if (snapshot.hasError) {}
+                          try {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(snap['location']['name'] +
+                                        ' , ' +
+                                        snap['location']['country']),
+                                    const Icon(Icons.more_horiz_outlined)
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${snap['current']['temp_c'].toString().split('.')[0]}°",
+                                          style: TextStyle(fontSize: 50),
+                                        ),
+                                        Text(
+                                          snap['current']['condition']['text'],
+                                        ),
+                                        gap10(),
+                                        Text(
+                                            "Humidity ${snap['current']['humidity']}%"),
+                                        gap10(),
+                                      ],
+                                    ),
+                                    const GlowIcon(
+                                      Icons.sunny,
+                                      color: Colors.yellow,
+                                      size: 120,
+                                    )
+                                  ],
+                                )
+                              ],
+                            );
+                          } catch (e) {
+                            return Center(
+                              child: Text(
+                                e.toString(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            );
+                          }
+                        }),
+
                   ),
                 ),
               ],
